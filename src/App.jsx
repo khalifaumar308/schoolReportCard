@@ -1,7 +1,6 @@
-import "./App.css";
 import MyDocument from "./MyDocument";
 import { PDFViewer, renderToFile } from "@react-pdf/renderer";
-
+import DocumentData from "./DocumentData";
 
 
 
@@ -14,9 +13,12 @@ function App() {
     //     }
     //   </PDFDownloadLink>
     // </div>
-    <PDFViewer>
-      <MyDocument />
-    </PDFViewer>
+    <div>
+      <DocumentData />
+    </div>
+    // <PDFViewer>
+    //   <MyDocument />
+    // </PDFViewer>
   );
 }
 
