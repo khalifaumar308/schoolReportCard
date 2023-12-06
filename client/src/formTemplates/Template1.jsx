@@ -9,8 +9,8 @@ import {
   Image,
   Font,
 } from "@react-pdf/renderer";
-import { datas, tData } from "./data";
-import logo from "./assets/logo.jpg";
+import { datas, tData } from "../data/data";
+import logo from "../assets/logo.jpg";
 
 const morfData = (data) => {
   const cp = data.map(dt => {
@@ -31,7 +31,7 @@ const morfData = (data) => {
 }
 
 // Create Document Component
-const MyDocument = () => {
+const Template1 = () => {
   // Create styles
   const styles = StyleSheet.create({
     page: { padding: 10, fontFamily: "Courier", fontStyle: "none" },
@@ -288,4 +288,4 @@ const MyDocument = () => {
   );
 } 
 
-export default MyDocument
+export default Template1

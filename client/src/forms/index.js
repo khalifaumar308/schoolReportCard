@@ -1,0 +1,1 @@
+export { default as Template1Form } from './Template1Form'

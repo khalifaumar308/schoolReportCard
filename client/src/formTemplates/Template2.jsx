@@ -1,5 +1,5 @@
 import { PDFViewer, renderToFile } from "@react-pdf/renderer";
-import { logo1 } from "./assets";
+import { logo1 } from "../assets";
 import {
   Page,
   Text,
@@ -11,7 +11,7 @@ import {
   Font,
 } from "@react-pdf/renderer";
 
-import { template2data } from "./data";
+import { template2data } from "../data/data";
 
 const Template2 = () => {
   const { details, subjects, specailAreas, affectiveAssesment } = template2data;
@@ -222,7 +222,7 @@ const Template2 = () => {
                 color: "green",
               }}
             >
-              1st TERM REPORT CARD
+              FIRST TERM REPORT CARD
             </Text>
           </View>
           <View>
@@ -377,6 +377,7 @@ const Template2 = () => {
             marginTop: "20px",
             display: "flex",
             flexDirection: "row",
+            marginLeft:'15px'
           }}
         >
           <View

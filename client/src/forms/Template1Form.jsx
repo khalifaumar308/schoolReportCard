@@ -1,10 +1,10 @@
 import { useState, useRef } from "react"
-import { useSaveStudentMutation } from "./api/apiSlice";
+import { useSaveStudentMutation } from "../api/apiSlice";
 import { useDispatch } from "react-redux";
 import SignatureCanvas from "react-signature-canvas";
 
 
-const DocumentData = () => {
+const Template1Form = () => {
   const savedTopic = sessionStorage.getItem('topic')
   const savedSubTopic = sessionStorage.getItem("subtopic");
   const subTopicss = JSON.parse(sessionStorage.getItem('subtopics'))
@@ -300,4 +300,4 @@ const DocumentData = () => {
     
 }
 
-export default DocumentData
+export default Template1Form

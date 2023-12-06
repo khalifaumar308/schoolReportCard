@@ -1,12 +1,11 @@
-import MyDocument from "./MyDocument";
 import { PDFViewer, renderToFile, PDFDownloadLink } from "@react-pdf/renderer";
 import {
   Route,
   Routes,
   Navigate,
 } from "react-router-dom";
-import DocumentData from "./DocumentData";
-import Template2 from "./Template2";
+import { Template1Form } from "./forms";
+import { Template1, Template2 } from "./formTemplates";
 
 
 
@@ -16,7 +15,7 @@ function App() {
         <Route
           path="/download"
           element={
-            <PDFDownloadLink document={<MyDocument />} fileName="somename.pdf">
+            <PDFDownloadLink document={<Template1 />} fileName="somename.pdf">
               {({ blob, url, loading, error }) =>
                 loading ? "Loading document..." : "Download now!"
               }
@@ -25,10 +24,10 @@ function App() {
         />
         <Route path='/view' element={
           <PDFViewer>
-            <MyDocument />
+            <Template1 />
           </PDFViewer>
         } />
-      <Route path='/' index element={<DocumentData />} />
+      <Route path='/' index element={<Template1Form />} />
       <Route path="/t2" element={
         <PDFViewer>
           <Template2 />
