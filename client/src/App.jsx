@@ -1,21 +1,17 @@
 import MyDocument from "./MyDocument";
 import { PDFViewer, renderToFile, PDFDownloadLink } from "@react-pdf/renderer";
 import {
-  BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
 } from "react-router-dom";
 import DocumentData from "./DocumentData";
+import Template2 from "./Template2";
 
 
 
 function App() {
   return (
-    // <div>
-
-    // </div>
-    <Router>
       <Routes>
         <Route
           path="/download"
@@ -32,9 +28,13 @@ function App() {
             <MyDocument />
           </PDFViewer>
         } />
-        <Route path='/' index element={<DocumentData />} />
+      <Route path='/' index element={<DocumentData />} />
+      <Route path="/t2" element={
+        <PDFViewer>
+          <Template2 />
+        </PDFViewer>
+      } />
       </Routes>
-    </Router>
   );
 }
 

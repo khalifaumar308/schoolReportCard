@@ -334,3 +334,123 @@ export const assessment = [
   { assessment: "Self Control", rating: "V.GOOD" },
   { assessment: "Punctuality", rating: "V.GOOD" },
 ];
+
+export const template2data = {
+  details: {
+    name: "Musa Ali",
+    grade: "4",
+    attendance: "12",
+  },
+  subjects: {
+    mathematics: {
+      CA1: 15,
+      CA2: 14,
+      Proj: 10,
+      exam: 55,
+      average: "74:[52, 90]",
+      comment:
+        "Order large numbers in ascending order and decending order, whole numbers as a product of prime factorsd",
+    },
+    english: {
+      CA1: 15,
+      CA2: 14,
+      Proj: 10,
+      exam: 55,
+      average: "74:[52, 90]",
+      comment:
+        "Order large numbers in ascending order and decending order, whole numbers as a product of prime factorsd",
+    },
+    "basic science": {
+      CA1: 15,
+      CA2: 14,
+      Proj: 10,
+      exam: 55,
+      average: "74:[52, 90]",
+      comment:
+        "Order large numbers in ascending order and decending order, whole numbers as a product of prime factorsd",
+    },
+    "Civic Education / Social Studies": {
+      CA1: 15,
+      CA2: 14,
+      Proj: 10,
+      exam: 55,
+      average: "74:[52, 90]",
+      comment:
+        "Order large numbers in ascending order and decending order, whole numbers as a product of prime factorsd",
+    },
+    "Cultural Creative Art": {
+      CA1: 15,
+      CA2: 14,
+      Proj: 10,
+      exam: 55,
+      average: "74:[52, 90]",
+      comment:
+        "Order large numbers in ascending order and decending order, whole numbers as a product of prime factorsd",
+    },
+    handwriting: {
+      CA1: 15,
+      CA2: 14,
+      Proj: 10,
+      exam: 55,
+      average: "74:[52, 90]",
+      comment:
+        "Order large numbers in ascending order and decending order, whole numbers as a product of prime factorsd",
+    },
+    "I C T": {
+      CA1: 15,
+      CA2: 14,
+      Proj: 10,
+      exam: 55,
+      average: "74:[52, 90]",
+      comment:
+        "Order large numbers in ascending order and decending order, whole numbers as a product of prime factorsd",
+    },
+    "P H E": {
+      CA1: 15,
+      CA2: 14,
+      Proj: 10,
+      exam: 55,
+      average: "74:[52, 90]",
+      comment:
+        "Order large numbers in ascending order and decending order, whole numbers as a product of prime factorsd",
+    },
+    "I R S": {
+      CA1: 15,
+      CA2: 14,
+      Proj: 10,
+      exam: 55,
+      average: "74:[52, 90]",
+      comment:
+        "Order large numbers in ascending order and decending order, whole numbers as a product of prime factorsd",
+    },
+  },
+  specailAreas: {
+    library: {
+      behavior: "S",
+      effort: "S",
+      skill: "S",
+    },
+    "physical educ.": {
+      behavior: "S",
+      effort: "S",
+      skill: "S",
+    },
+    "science & nature": {
+      behavior: "S",
+      effort: "S",
+      skill: "S",
+    },
+    arts: {
+      behavior: "S",
+      effort: "S",
+      skill: "S",
+    },
+  },
+  affectiveAssesment: {
+    neatness: 'S',
+    'following instructions': 'S',
+    'independance': 'S',
+    'self control': 'S',
+    punctuality: 'S',
+  }
+};

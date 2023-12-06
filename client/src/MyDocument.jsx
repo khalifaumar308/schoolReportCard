@@ -134,12 +134,13 @@ const MyDocument = () => {
           <Text>{topic}</Text>
         </View>
         {id === 0 ? (
-          <View style={{ flexDirection: "row", paddingBottom: "3px" }}>
+          <View style={{ flexDirection: "row", padding: "3px" }}>
             <View style={{ width: "100px" }}></View>
             <View style={{ width: "270px" }}></View>
-            <Text style={{ fontSize: "8px", fontWeight: "extrabold" }}>
+            <Text style={{ fontSize: "9px",marginLeft:'-12px' }}>
               Status
             </Text>
+            <Text style={{fontSize:'10px', marginLeft:'30px'}}>Notes</Text>
           </View>
         ) : (
           <></>
@@ -149,40 +150,40 @@ const MyDocument = () => {
     );
   });
   
-  const ass = assessment.map(({ assesment, rating: rat }, id) => {
-    console.log(rat)
-    return (
-      <View
-        key={id}
-        style={{ flexDirection: "row", width: "300px", height: "20px" }}
-      >
-        <Text
-          style={{
-            borderBottom: "2px solid black",
-            padding: "4px",
-            marginTop: "-1px",
-            width: "205px",
-            fontSize: "10px",
-            borderLeft: "2px solid black",
-            borderRight: "2px solid black",
-          }}
-        >
-          {assesment}
-          {rat}
-        </Text>
-        <Text
-          style={{
-            borderBottom: "2px solid black",
-            // width: "100px",
-            // padding: "6px",
-            // fontSize: "10px",
-            // borderRight: "2px solid black",
-            // marginLeft: "-4px",
-          }}
-        >
-          {rat}
-        </Text>
-      </View>
+  const ass = assessment.map(({ assesment, rating }, id) => {
+    return (<h1 key={id}>{ assesment}</h1>
+      // <View
+      //   key={assesment}
+      //   style={{ flexDirection: "row", width: "300px", height: "20px" }}
+      // >
+      //   <Text>Musaaa</Text>
+      //   {/* <Text
+      //     style={{
+      //       borderBottom: "2px solid black",
+      //       padding: "4px",
+      //       marginTop: "-1px",
+      //       width: "305px",
+      //       fontSize: "10px",
+      //       borderLeft: "2px solid black",
+      //       borderRight: "2px solid black",
+      //     }}
+      //   >
+      //     {assesment}
+      //   </Text> */}
+      //   <Text
+      //     // style={{
+      //     //   borderBottom: "2px solid black",
+      //     //   width: "100px",
+      //     //   padding: "6px",
+      //     //   fontSize: "10px",
+      //     //   borderRight: "2px solid black",
+      //     //   marginLeft: "-4px",
+      //     // }}
+      //   >
+      //     ererfdjkmrejif
+      //     {rating}
+      //   </Text>
+      // </View>
     );
   });
   return (
@@ -266,7 +267,21 @@ const MyDocument = () => {
             </Text>
             <Text style={{ paddingLeft: "2px" }}>RATING</Text>
           </View>
-          {ass}
+        </View>
+        <View>
+
+          {
+            assessment.map(({ ass, rating }) => {
+              console.log(typeof(rating))
+              return(
+                <View key={ass} style={{display:'grid', gridTemplateColumns:'2fr 1fr'}}>
+                  <View>
+                    <Text>{ ass }</Text>
+                    <Text>{ass}{ass}</Text>
+                  </View>
+              </View>
+            )})
+            }
         </View>
       </Page>
     </Document>

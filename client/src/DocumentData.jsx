@@ -1,4 +1,7 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
+import { useSaveStudentMutation } from "./api/apiSlice";
+import { useDispatch } from "react-redux";
+import SignatureCanvas from "react-signature-canvas";
 
 
 const DocumentData = () => {
@@ -14,6 +17,18 @@ const DocumentData = () => {
   const [subTopics, setSubTopics] = useState(subTopicss?subTopicss: [])
   const [Topics, setTopics] = useState(topics ? topics : []);
   const [assesment, setAssessment] = useState([])
+
+  const [saveStudentMutation, { isLoading }] = useSaveStudentMutation();
+  const dispatch = useDispatch();
+  const [openModel, setOpenModal] = useState(false);
+  const sigCanvas = useRef();
+  const [imageURL, setImageURL] = useState(null);
+
+  const create = () => {
+    const URL = sigCanvas.current.getTrimmedCanvas().toDataURL("image/png");
+    setImageURL(URL);
+    setOpenModal(false);
+  };
 
   const saveDetail = (e) => {
     e.preventDefault()
@@ -80,7 +95,7 @@ const DocumentData = () => {
     e.target.rating.value = "";
   }
 
-  const saveStudent = () => {
+  const saveStudent = async () => {
     const topics = JSON.parse(sessionStorage.getItem('subjects'))
     let stds = JSON.parse(sessionStorage.getItem('students'))
     stds = stds ? stds : []
@@ -89,15 +104,22 @@ const DocumentData = () => {
       topics: JSON.parse(sessionStorage.getItem("topics")),
       assesment:assesment,
     };
-    const stdss = [...stds, student]
-    sessionStorage.setItem('students', JSON.stringify(stdss))
-    sessionStorage.removeItem("topic");
-    sessionStorage.removeItem("topics");
-    sessionStorage.removeItem("subtopic");
-    sessionStorage.removeItem("subtopics");
+    try {
+      await saveStudentMutation(student)
+      const stdss = [...stds, student]
+      sessionStorage.setItem('students', JSON.stringify(stdss))
+      sessionStorage.removeItem("topic");
+      sessionStorage.removeItem("topics");
+      sessionStorage.removeItem("subtopic");
+      sessionStorage.removeItem("subtopics");
+    } catch (error) {
+      console.log(error)
+    }
   }
- 
-  return (
+
+  const content = isLoading ? (
+    <h1>Saving Student...</h1>
+  ) : (
     <div className="p-6 flex flex-col">
       <h1>NORTHFIELD MONTESSORI RESULT PORTAL</h1>
       <div className=" border shadow-sm items-center flex flex-col">
@@ -150,6 +172,24 @@ const DocumentData = () => {
             save
           </button>
         </form>
+      </div>
+      <div>
+        <div className=" flex border-2 mt-4">
+          <SignatureCanvas
+            penColor="blue"
+            canvasProps={{ minHeight: 200, maxWidth:500, }}
+            ref={sigCanvas}
+          />
+        </div>
+        <button onClick={() => sigCanvas.current.clear()}>Clear</button>
+        <button className="create" onClick={create}>
+          Save
+        </button>
+
+        {/* <SignatureCanvas
+          penColor="blue"
+          canvasProps={{ width: 500, height: 200 }}
+        /> */}
       </div>
       <div className="mt-6 border-2 p-3">
         <div>
@@ -255,6 +295,9 @@ const DocumentData = () => {
       </button>
     </div>
   );
+
+  return content
+    
 }
 
 export default DocumentData
