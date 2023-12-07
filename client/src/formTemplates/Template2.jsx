@@ -377,7 +377,7 @@ const Template2 = () => {
             marginTop: "20px",
             display: "flex",
             flexDirection: "row",
-            marginLeft:'15px'
+            marginLeft: "15px",
           }}
         >
           <View
@@ -500,63 +500,84 @@ const Template2 = () => {
                 backgroundColor: "gray",
                 border: "2px solid black",
                 fontSize: "10px",
-                display: 'flex',
-                flexDirection: 'row',
-                padding:'3px'
+                display: "flex",
+                flexDirection: "row",
+                padding: "3px",
               }}
             >
-              <Text style={{width:'150px'}}>AFFECTIVE ASSESMENT</Text>
+              <Text style={{ width: "150px" }}>AFFECTIVE ASSESMENT</Text>
               <Text>RATING</Text>
             </View>
-            {
-              Object.entries(affectiveAssesment).map(([ass, rating], id) => {
-                return (
-                  <View
+            {Object.entries(affectiveAssesment).map(([ass, rating], id) => {
+              return (
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    fontSize: "8px",
+                    textTransform: "uppercase",
+                    borderLeft: "2px solid black",
+                    borderRight: "2px solid black",
+                    borderBottom: "2px solid black",
+                  }}
+                  key={id}
+                >
+                  <Text
                     style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      fontSize: "8px",
-                      textTransform: "uppercase",
-                      borderLeft: "2px solid black",
+                      width: "150px",
                       borderRight: "2px solid black",
-                      borderBottom: "2px solid black",
+                      padding: "3px",
                     }}
-                    key={id}
                   >
-                    <Text
-                      style={{
-                        width: "150px",
-                        borderRight: "2px solid black",
-                        padding: "3px",
-                      }}
-                    >
-                      {ass}
-                    </Text>
-                    <Text
-                      style={{
-                        padding: "3px",
-                      }}
-                    >
-                      {rating}
-                    </Text>
-                  </View>
-                );
-              })
-            }
+                    {ass}
+                  </Text>
+                  <Text
+                    style={{
+                      padding: "3px",
+                    }}
+                  >
+                    {rating}
+                  </Text>
+                </View>
+              );
+            })}
           </View>
         </View>
-        <View style={{
-          borderBottom: '2px solid black',
-          width: '100%',
-          marginTop: '8px',
-          padding: '3px',
-          fontSize: '10px',
-          flexDirection:'row'
-        }}>
-          <Text style={{ marginRight: '20px' }}>S - Stisfactory</Text>
+        <View
+          style={{
+            borderBottom: "2px solid black",
+            width: "100%",
+            marginTop: "8px",
+            padding: "3px",
+            fontSize: "10px",
+            flexDirection: "row",
+          }}
+        >
+          <Text style={{ marginRight: "20px" }}>S - Stisfactory</Text>
           <Text>N - Needs Improvement</Text>
         </View>
-        <View></View>
+        <View style={{ marginTop: "50px" }}>
+          <View
+            style={{
+              padding: "4px",
+              borderBottom: "2px solid black",
+              width: "110px",
+              position: "relative",
+            }}
+          >
+            <Image
+              style={{ width: "100px" }}
+              src={
+                JSON.parse(sessionStorage.getItem("teacherDetails")).signature
+              }
+            />
+            <Text style={{
+              position: 'absolute',
+              fontSize: '8px',
+              bottom:'-15px'
+            }}>Teacher`&apos;`s Signature</Text>
+          </View>
+        </View>
       </Page>
     </Document>
   );

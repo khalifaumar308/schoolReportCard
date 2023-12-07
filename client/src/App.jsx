@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { Template1Form, Template2Form } from "./forms";
 import { Template1, Template2 } from "./formTemplates";
+import LandingPage from "./LandingPage";
 
 
 
@@ -15,7 +16,7 @@ function App() {
       <Route
         path="/download"
         element={
-          <PDFDownloadLink document={<Template1 />} fileName="somename.pdf">
+          <PDFDownloadLink document={<Template2 />} fileName="somename.pdf">
             {({ blob, url, loading, error }) =>
               loading ? "Loading document..." : "Download now!"
             }
@@ -30,7 +31,8 @@ function App() {
           </PDFViewer>
         }
       />
-      <Route path="/" index element={<Template1Form />} />
+      <Route path="/" index element={<LandingPage />} />
+      <Route path="/template1" index element={<Template1Form />} />
       <Route
         path="/t2"
         element={
@@ -39,7 +41,7 @@ function App() {
           </PDFViewer>
         }
       />
-      <Route path="/t2f" index element={<Template2Form />} />
+      <Route path="/template2" element={<Template2Form />} />
     </Routes>
   );
 }
