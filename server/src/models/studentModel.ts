@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { data, details, topics, question,assesment, questions, subtopics } from '../interface';
+import { data, details, topics, question,assesment, questions, subtopics } from '../resultTemplates/interface';
 
 //  name: string;
 //     class: string;

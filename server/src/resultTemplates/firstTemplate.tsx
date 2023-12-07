@@ -13,7 +13,7 @@ import ReactPDF, {
 // import { datas, tData } from "./data";
 import {logo} from "../assets";
 // import logo from "../logo.jpg";
-import { data, topics } from "../interface";
+import { data, topics } from "./interface";
 
 interface PDFProps {
   tData: data;
