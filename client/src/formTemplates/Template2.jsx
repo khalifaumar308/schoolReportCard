@@ -160,7 +160,7 @@ const Template2 = () => {
 
   return (
     <Document title="Motfield Montessori">
-      <Page size="A4" style={{ padding: "8px" }}>
+      <Page size="A4" style={{ padding: "8px", position:'relative' }}>
         <View
           style={{
             padding: "0 15%",
@@ -556,7 +556,7 @@ const Template2 = () => {
           <Text style={{ marginRight: "20px" }}>S - Stisfactory</Text>
           <Text>N - Needs Improvement</Text>
         </View>
-        <View style={{ marginTop: "50px" }}>
+        {/* <View style={{ marginTop: "50px" }}>
           <View
             style={{
               padding: "4px",
@@ -577,7 +577,8 @@ const Template2 = () => {
               bottom:'-15px'
             }}>Teacher`&apos;`s Signature</Text>
           </View>
-        </View>
+        </View> */}
+        <Image style={{ position:'absolute'}} src={logo1} ></Image>
       </Page>
     </Document>
   );

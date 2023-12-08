@@ -7,6 +7,7 @@ import secondTemplate from "../resultTemplates/secondTemplate";
 export const studentController: RequestHandler = async (req, res) => {
   try {
     const data = req.body
+    // console.log(data)
     const { details, topics, assesments } = data
     // const user = await studentModel.findOne({
     //   "details.email": details.email,

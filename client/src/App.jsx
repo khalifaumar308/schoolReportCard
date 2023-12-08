@@ -27,7 +27,7 @@ function App() {
         path="/view"
         element={
           <PDFViewer>
-            <Template1 />
+            <Template2 />
           </PDFViewer>
         }
       />

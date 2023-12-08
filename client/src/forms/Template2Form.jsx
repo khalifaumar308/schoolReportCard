@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { useSaveStudentMutation } from "../api/apiSlice";
+import { useDispatch } from "react-redux";
 
 const Template2Form = () => {
   const [details, setDetails] = useState({})
@@ -14,6 +16,8 @@ const Template2Form = () => {
   const [sudent, setStudent] = useState({})
   const [specailArea, setSpecialArea] = useState('')
   const [affectiveAss, setAffectiveAss] = useState({})
+  const [saveStudentMutation, { isLoading }] = useSaveStudentMutation();
+
 
   const saveDetail = (e) => {
     e.preventDefault()
@@ -51,18 +55,26 @@ const Template2Form = () => {
     e.preventDefault()
     setAffectiveAss({ ...affectiveAss, [e.target.assesment.value]: e.target.rating.value })
   }
-  const save = () => {
-    console.log(details)
-    console.log(topics);
-    console.log(specailAreas);
-    console.log(affectiveAss)
-    
-  }
+  const save = async () => {
+    const studentData = {
+      details: {
+        ...details,
+        signature: JSON.parse(sessionStorage.getItem("teacherDetails"))
+          .signature,
+      },
+      subjects: topics,
+      specailAreas:specailAreas,
+      affectiveAssesment: affectiveAss,
+    };
+    await saveStudentMutation(studentData);
+  };
 
-  return (
+  return isLoading ? (
+    <h1>Saving Student...</h1>
+  ) : (
     <div>
       <h1>NORTHFIELD MONTESSORI RESULT PORTAL</h1>
-      <div className=" border shadow-sm items-center flex flex-col">
+      <div className="bg-slate-100 m-3 border shadow-sm items-center flex flex-col">
         <form
           onSubmit={saveDetail}
           // style={{ display: view ? "none" : "flex" }}
@@ -76,21 +88,21 @@ const Template2Form = () => {
             id="teacher"
             name="teacher"
             placeholder="Teacher name"
-            className="bg-slate-400 text-orange-500 p-2 mb-2"
+            className=" p-2 mb-2"
           />
           <label htmlFor="name">Student Name</label>
           <input
             id="name"
             name="name"
             placeholder="student name"
-            className="bg-slate-400 text-orange-500 p-2 mb-2"
+            className=" p-2 mb-2"
           />
           <label htmlFor="class">Class</label>
           <input
             id="class"
             name="class"
             placeholder="student class"
-            className="bg-slate-400 text-orange-500 p-2 mb-2"
+            className=" p-2 mb-2"
           />
           <label htmlFor="absent">Days Absent</label>
           <input
@@ -98,7 +110,7 @@ const Template2Form = () => {
             name="absent"
             placeholder="Days Absent"
             type="number"
-            className="bg-slate-400 text-orange-500 p-2 mb-2"
+            className=" p-2 mb-2"
           />
           <label htmlFor="email">Parent Email</label>
           <input
@@ -106,14 +118,14 @@ const Template2Form = () => {
             name="email"
             placeholder="Parent email"
             type="email"
-            className="bg-slate-400 text-orange-500 p-2 mb-2"
+            className=" p-2 mb-2"
           />
           <button className="bg-orange-500 w-24 rounded-xl hover:bg-orange-300">
             save
           </button>
         </form>
       </div>
-      <div className="p-8">
+      <div className="p-8 bg-slate-100 m-3 border shadow-sm">
         {/* <form className="flex flex-col"> */}
         <label htmlFor="subject" className="mb-2">
           Subject
@@ -121,7 +133,7 @@ const Template2Form = () => {
             name="subject"
             value={ctopic}
             onChange={(e) => setCtopic(e.target.value)}
-            className="bg-slate-100 p-1 ml-2 mb-2"
+            className=" p-1 ml-2 mb-2"
           />
         </label>
         <div>
@@ -129,7 +141,7 @@ const Template2Form = () => {
           <input
             name="CA1"
             placeholder="00"
-            className="w-12 bg-slate-100 p-1 ml-2"
+            className="w-12 p-1 ml-2"
             type="number"
             value={ca1}
             onChange={(e) => setCa1(Number(e.target.value))}
@@ -140,7 +152,7 @@ const Template2Form = () => {
           <input
             name="CA2"
             placeholder="00"
-            className="w-12 bg-slate-100 p-1 ml-2"
+            className="w-12 p-1 ml-2"
             type="number"
             value={ca2}
             onChange={(e) => setCa2(Number(e.target.value))}
@@ -151,7 +163,7 @@ const Template2Form = () => {
           <input
             name="Proj"
             placeholder="00"
-            className="w-12 bg-slate-100 p-1 ml-2"
+            className="w-12 p-1 ml-2"
             type="number"
             value={proj}
             onChange={(e) => setProj(Number(e.target.value))}
@@ -162,7 +174,7 @@ const Template2Form = () => {
           <input
             name="exam"
             placeholder="00"
-            className="w-12 bg-slate-100 p-1 mt-2"
+            className="w-12 p-1 mt-2"
             type="number"
             value={exam}
             onChange={(e) => setExam(Number(e.target.value))}
@@ -175,7 +187,7 @@ const Template2Form = () => {
           <input
             name="average"
             placeholder="00:[00, 00]"
-            className=" mb-3 w-34 bg-slate-100 p-1 mt-2"
+            className=" mb-3 w-34  p-1 mt-2"
             type="text"
             value={average}
             onChange={(e) => setAverage(e.target.value)}
@@ -188,7 +200,7 @@ const Template2Form = () => {
             placeholder="Comment"
             autoCorrect="on"
             spellCheck
-            className="bg-slate-100 
+            className=" 
             p-1 mt-4 w-[100%]"
             value={comment}
             onChange={(e) => SetComment(e.target.value)}
@@ -196,7 +208,7 @@ const Template2Form = () => {
         </div>
         <button
           onClick={saveTopic}
-          className="bg-orange-500 p-3 mt-4 w rounded-xl hover:bg-orange-300 w-[100%]"
+          className="bg-orange-500 text-white p-3 mt-4 w rounded-xl hover:bg-orange-300 w-[100%]"
         >
           Save Subject
         </button>
@@ -241,11 +253,7 @@ const Template2Form = () => {
         <form className="flex flex-col" onSubmit={saveAffectiveAss}>
           <label htmlFor="assesments">
             Assesment:
-            <input
-              name="assesment"
-              placeholder="S"
-              className="w-52 ml-2 p-2"
-            />
+            <input name="assesment" placeholder="S" className="w-52 ml-2 p-2" />
           </label>
           <label className="ml-2 mt-3" htmlFor="rating">
             Rating:
