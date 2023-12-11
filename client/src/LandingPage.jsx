@@ -31,21 +31,19 @@ const LandingPage = () => {
           NORTHFIED MONTESSORI REPORT CARD PORTAL
         </h1>
         <div className="flex flex-col align-middle items-start ml-4">
-          <label className="-ml-4">
-            Teacher Name:
-            <input
-              value={teacherName}
-              onChange={(e) => setTeacherName(e.target.value)}
-              placeholder="Name"
-              className="ml-3 bg-slate-100 p-2 mt-8"
-            />
-          </label>
+          <label className="-ml-4 flex align-middle">Teacher Name:</label>
+          <input
+            value={teacherName}
+            onChange={(e) => setTeacherName(e.target.value)}
+            placeholder="Name"
+            className="ml-3 bg-slate-100 p-2 mt-2"
+          />
           <label className="-ml-4">
             Class:
             <input
               value={sclass}
               onChange={(e) => setsClass(e.target.value)}
-              placeholder="Name"
+              placeholder="montesorri 1"
               className="ml-3 bg-slate-100 p-2 mt-2"
             />
           </label>

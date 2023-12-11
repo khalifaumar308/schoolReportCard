@@ -8,6 +8,7 @@ import { Template1Form, Template2Form } from "./forms";
 import { Template1, Template2 } from "./formTemplates";
 import LandingPage from "./LandingPage";
 import Login from "./Login";
+import Register from "./Register";
 
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
           </PDFViewer>
         }
       />
-      <Route path="/login" element={<Login /> } />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/" index element={<LandingPage />} />
       <Route path="/template1" index element={<Template1Form />} />
       <Route

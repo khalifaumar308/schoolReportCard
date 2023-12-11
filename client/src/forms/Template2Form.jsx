@@ -75,7 +75,7 @@ const Template2Form = () => {
     await saveStudentMutation(studentData);
   };
     const buttons = () => (
-      <div className="flex ml-[25%] mt-10">
+      <div className="flex sm:ml-[25%] mt-10">
         <button
           className="bg-green-500 hover:bg-green-300 text-white rounded-xl p-2 mt-6 mr-5"
           onClick={save}
