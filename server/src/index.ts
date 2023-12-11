@@ -3,11 +3,39 @@ import { studentController } from "./controllers/studentController";
 import cors from 'cors';
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-dotenv.config()
+import cookieParser from "cookie-parser"
+import { RequestHandler } from "express";
+import { userRouter } from "./routes/userRoutes";
+import { verifyToken } from "./middleware/auth";
+// import use
+dotenv.config();
+
+const allowedOrigins = ["http://127.0.0.1:5173", "http://localhost:5173"];
+
+// const credentials:RequestHandler = (req, res, next) => {
+//   const origin = req.headers.origin;
+//   if (allowedOrigins.includes(origin)) {
+//     res.header("Access-Control-Allow-Credentials", true);
+//   }
+//   next();
+// };
+
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   optionsSuccessStatus: 200,
+// };
 
 const app = express();
 app.use(cors())
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -19,6 +47,8 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+app.use("/user", userRouter);
 
 // const port = 3000;
 // app.listen(port, () => {
@@ -48,4 +78,4 @@ mongoose
 // }
 // );
 
-app.post('/', studentController);
+app.post('/sendresult', verifyToken, studentController);

@@ -8,7 +8,7 @@ export const studentController: RequestHandler = async (req, res) => {
   try {
     const data = req.body
     // console.log(data)
-    const { details, topics, assesments } = data
+    const { details, topics, assesments, template } = data
     // const user = await studentModel.findOne({
     //   "details.email": details.email,
     //   "details.name": details.name,
@@ -20,7 +20,7 @@ export const studentController: RequestHandler = async (req, res) => {
     // //add student to database
     // const student = await studentModel.create({
     //   details, topics:JSON.stringify(topics), assesments});
-    const reportCard = await secondTemplate(data);
+    const reportCard = template==2?await secondTemplate(data): await firstTemplate(data)
     const rt = await sendMail({
       name: details.name,
       email: details.email,

@@ -141,12 +141,13 @@ const MyDocument = ({ tData }: PDFProps) => {
           <Text>{topic}</Text>
         </View>
         {id === 0 ? (
-          <View style={{ flexDirection: "row", paddingBottom: "3px" }}>
+          <View style={{ flexDirection: "row", padding: "3px" }}>
             <View style={{ width: "100px" }}></View>
             <View style={{ width: "270px" }}></View>
-            <Text style={{ fontSize: "8px", fontWeight: "extrabold" }}>
+            <Text style={{ fontSize: "9px",marginLeft:'-12px' }}>
               Status
             </Text>
+            <Text style={{fontSize:'10px', marginLeft:'30px'}}>Notes</Text>
           </View>
         ) : (
           <></>
@@ -156,50 +157,12 @@ const MyDocument = ({ tData }: PDFProps) => {
     );
   });
   
-  const ass = assessment.map(({ assesment, rating: rat }, id) => {
-    console.log(rat)
-    return (
-      <View
-        key={id}
-        style={{ flexDirection: "row", width: "300px", height: "20px" }}
-      >
-        <Text
-          style={{
-            borderBottom: "2px solid black",
-            padding: "4px",
-            marginTop: "-1px",
-            width: "205px",
-            fontSize: "10px",
-            borderLeft: "2px solid black",
-            borderRight: "2px solid black",
-          }}
-        >
-          {assesment}
-          {rat}
-        </Text>
-        <Text
-          style={{
-            borderBottom: "2px solid black",
-            // width: "100px",
-            // padding: "6px",
-            // fontSize: "10px",
-            // borderRight: "2px solid black",
-            // marginLeft: "-4px",
-          }}
-        >
-          {rat}
-        </Text>
-      </View>
-    );
-  });
   return (
     <Document title="Motfield Montessoei">
       <Page size="A4" style={styles.page}>
         <View style={{ position: "relative" }}>
           <Image
             src='./src/assets/logo.jpg'
-            // src = {logo}
-            
             style={{
               position: "absolute",
               width: "70px",
@@ -268,6 +231,7 @@ const MyDocument = ({ tData }: PDFProps) => {
               paddingLeft: "3px",
               fontSize: "12px",
               width: "300px",
+              backgroundColor: "#adb9ca",
             }}
           >
             <Text style={{ width: "200px", borderRight: "2px solid black" }}>
@@ -275,7 +239,128 @@ const MyDocument = ({ tData }: PDFProps) => {
             </Text>
             <Text style={{ paddingLeft: "2px" }}>RATING</Text>
           </View>
-          {ass}
+        </View>
+        <View>
+          {assessment.map((asss, id) => {
+            return (
+              <View key={id} style={{ flexDirection: "row" }}>
+                <Text
+                  style={{
+                    borderBottom: "2px solid black",
+                    padding: "4px",
+                    marginTop: "-1px",
+                    width: "205px",
+                    fontSize: "10px",
+                    borderLeft: "2px solid black",
+                    borderRight: "2px solid black",
+                  }}
+                >
+                  {asss.assesment}
+                </Text>
+                <Text
+                  style={{
+                    borderBottom: "2px solid black",
+                    padding: "4px",
+                    marginTop: "-1px",
+                    width: "95px",
+                    fontSize: "10px",
+                    borderRight: "2px solid black",
+                  }}
+                >
+                  {asss.rating}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+        <View
+          style={{
+            marginTop: "15px",
+            marginLeft: "7px",
+            marginRight: "7px",
+            fontSize: "7px",
+            textAlign: "center",
+          }}
+        >
+          <Text>
+            <Text style={{ fontWeight: "extrabold", fontSize: "9px" }}>M-</Text>
+            Mastered: Complete activity presented and child has mastered
+            <Text style={{ fontWeight: "extrabold", fontSize: "9px" }}>
+              {" "}
+              P-
+            </Text>
+            Progressing: Part of the activity presented and child is on track.
+          </Text>
+          <Text>
+            <Text style={{ fontWeight: "extrabold", fontSize: "9px" }}>N-</Text>
+            Needs more Practice
+            <Text style={{ fontWeight: "extrabold", fontSize: "9px" }}>
+              {" "}
+              DG-
+            </Text>
+            Developing: (Skill)
+            <Text style={{ fontWeight: "extrabold", fontSize: "9px" }}>
+              {" "}
+              DD-
+            </Text>
+            Developed: (Skill)
+          </Text>
+        </View>
+        <View
+          style={{
+            margin: "50px",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <View
+            style={{
+              padding: "4px",
+              borderBottom: "2px solid black",
+              width: "110px",
+              position: "relative",
+            }}
+          >
+            {/* <Image
+              style={{ width: "100px" }}
+              src={
+                JSON.parse(sessionStorage.getItem("teacherDetails")).signature
+              }
+            /> */}
+            <Text
+              style={{
+                position: "absolute",
+                fontSize: "8px",
+                bottom: "-15px",
+              }}
+            >
+              Director&apos;s Signature
+            </Text>
+          </View>
+          <View
+            style={{
+              padding: "4px",
+              borderBottom: "2px solid black",
+              width: "110px",
+              position: "relative",
+            }}
+          >
+            {/* <Image
+              style={{ width: "100px" }}
+              src={
+                JSON.parse(sessionStorage.getItem("teacherDetails")).signature
+              }
+            /> */}
+            <Text
+              style={{
+                position: "absolute",
+                fontSize: "8px",
+                bottom: "-15px",
+              }}
+            >
+              Teacher&apos;s Signature
+            </Text>
+          </View>
         </View>
       </Page>
     </Document>
