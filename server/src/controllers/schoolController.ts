@@ -7,7 +7,7 @@ import { RequestHandler } from "express";
 export const handleLogin:RequestHandler = async (req, res) => {
   const cookies = req.cookies;
 
-  const { email, pwd, name, school } = req.body;
+  const { email, pwd } = req.body;
   if (!email || !pwd)
     return res
       .status(400)
