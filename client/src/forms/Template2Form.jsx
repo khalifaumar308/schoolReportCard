@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useSaveStudentMutation } from "../api/apiSlice";
+import { useSaveStudentMutation } from "../api/apiEndpoints";
 import { useDispatch } from "react-redux";
 import { PDFViewer, renderToFile, PDFDownloadLink } from "@react-pdf/renderer";
 import { Template2 } from "../formTemplates";
