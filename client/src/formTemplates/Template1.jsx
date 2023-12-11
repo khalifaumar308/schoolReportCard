@@ -149,42 +149,6 @@ const Template1 = () => {
     );
   });
   
-  const ass = assessment.map(({ assesment, rating }, id) => {
-    return (<h1 key={id}>{ assesment}</h1>
-      // <View
-      //   key={assesment}
-      //   style={{ flexDirection: "row", width: "300px", height: "20px" }}
-      // >
-      //   <Text>Musaaa</Text>
-      //   {/* <Text
-      //     style={{
-      //       borderBottom: "2px solid black",
-      //       padding: "4px",
-      //       marginTop: "-1px",
-      //       width: "305px",
-      //       fontSize: "10px",
-      //       borderLeft: "2px solid black",
-      //       borderRight: "2px solid black",
-      //     }}
-      //   >
-      //     {assesment}
-      //   </Text> */}
-      //   <Text
-      //     // style={{
-      //     //   borderBottom: "2px solid black",
-      //     //   width: "100px",
-      //     //   padding: "6px",
-      //     //   fontSize: "10px",
-      //     //   borderRight: "2px solid black",
-      //     //   marginLeft: "-4px",
-      //     // }}
-      //   >
-      //     ererfdjkmrejif
-      //     {rating}
-      //   </Text>
-      // </View>
-    );
-  });
   return (
     <Document title="Motfield Montessoei">
       <Page size="A4" style={styles.page}>
@@ -259,6 +223,7 @@ const Template1 = () => {
               paddingLeft: "3px",
               fontSize: "12px",
               width: "300px",
+              backgroundColor: "#adb9ca",
             }}
           >
             <Text style={{ width: "200px", borderRight: "2px solid black" }}>
@@ -268,19 +233,126 @@ const Template1 = () => {
           </View>
         </View>
         <View>
-
-          {
-            assessment.map(({ ass, rating }) => {
-              console.log(typeof(rating))
-              return(
-                <View key={ass} style={{display:'grid', gridTemplateColumns:'2fr 1fr'}}>
-                  <View>
-                    <Text>{ ass }</Text>
-                    <Text>{ass}{ass}</Text>
-                  </View>
+          {assessment.map((asss, id) => {
+            return (
+              <View key={id} style={{ flexDirection: "row" }}>
+                <Text
+                  style={{
+                    borderBottom: "2px solid black",
+                    padding: "4px",
+                    marginTop: "-1px",
+                    width: "205px",
+                    fontSize: "10px",
+                    borderLeft: "2px solid black",
+                    borderRight: "2px solid black",
+                  }}
+                >
+                  {asss.assesment}
+                </Text>
+                <Text
+                  style={{
+                    borderBottom: "2px solid black",
+                    padding: "4px",
+                    marginTop: "-1px",
+                    width: "95px",
+                    fontSize: "10px",
+                    borderRight: "2px solid black",
+                  }}
+                >
+                  {asss.rating}
+                </Text>
               </View>
-            )})
-            }
+            );
+          })}
+        </View>
+        <View
+          style={{
+            marginTop: "15px",
+            marginLeft: "7px",
+            marginRight: "7px",
+            fontSize: "7px",
+            textAlign: "center",
+          }}
+        >
+          <Text>
+            <Text style={{ fontWeight: "extrabold", fontSize: "9px" }}>M-</Text>
+            Mastered: Complete activity presented and child has mastered
+            <Text style={{ fontWeight: "extrabold", fontSize: "9px" }}>
+              {" "}
+              P-
+            </Text>
+            Progressing: Part of the activity presented and child is on track.
+          </Text>
+          <Text>
+            <Text style={{ fontWeight: "extrabold", fontSize: "9px" }}>N-</Text>
+            Needs more Practice
+            <Text style={{ fontWeight: "extrabold", fontSize: "9px" }}>
+              {" "}
+              DG-
+            </Text>
+            Developing: (Skill)
+            <Text style={{ fontWeight: "extrabold", fontSize: "9px" }}>
+              {" "}
+              DD-
+            </Text>
+            Developed: (Skill)
+          </Text>
+        </View>
+        <View
+          style={{
+            margin: "50px",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <View
+            style={{
+              padding: "4px",
+              borderBottom: "2px solid black",
+              width: "110px",
+              position: "relative",
+            }}
+          >
+            <Image
+              style={{ width: "100px" }}
+              src={
+                JSON.parse(sessionStorage.getItem("teacherDetails")).signature
+              }
+            />
+            <Text
+              style={{
+                position: "absolute",
+                fontSize: "8px",
+                bottom: "-15px",
+              }}
+            >
+              Director&apos;s Signature
+            </Text>
+          </View>
+          <View
+            style={{
+              padding: "4px",
+              borderBottom: "2px solid black",
+              width: "110px",
+              position: "relative",
+            }}
+          >
+            {/* <Image
+              style={{ width: "100px" }}
+              src={
+                JSON.parse(sessionStorage.getItem("teacherDetails")).signature
+              }
+            /> */}
+            <Text
+              style={{
+                position: "absolute",
+                fontSize: "8px",
+                bottom: "-15px",
+              }}
+            >
+              Teacher&apos;s Signature
+            </Text>
+          </View>
         </View>
       </Page>
     </Document>

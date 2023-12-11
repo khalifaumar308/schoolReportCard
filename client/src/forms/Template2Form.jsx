@@ -1,6 +1,9 @@
 import { useState } from "react"
 import { useSaveStudentMutation } from "../api/apiSlice";
 import { useDispatch } from "react-redux";
+import { PDFViewer, renderToFile, PDFDownloadLink } from "@react-pdf/renderer";
+import { Template2 } from "../formTemplates";
+
 
 const Template2Form = () => {
   const [details, setDetails] = useState({})
@@ -16,6 +19,8 @@ const Template2Form = () => {
   const [sudent, setStudent] = useState({})
   const [specailArea, setSpecialArea] = useState('')
   const [affectiveAss, setAffectiveAss] = useState({})
+  const [preview, setPreview] = useState(false);
+  const [download, setDownload] = useState(false);
   const [saveStudentMutation, { isLoading }] = useSaveStudentMutation();
 
 
@@ -65,13 +70,33 @@ const Template2Form = () => {
       subjects: topics,
       specailAreas:specailAreas,
       affectiveAssesment: affectiveAss,
+      template:2
     };
     await saveStudentMutation(studentData);
   };
-
-  return isLoading ? (
-    <h1>Saving Student...</h1>
-  ) : (
+    const buttons = () => (
+      <div className="flex ml-[25%] mt-10">
+        <button
+          className="bg-green-500 hover:bg-green-300 text-white rounded-xl p-2 mt-6 mr-5"
+          onClick={save}
+        >
+          Send Result
+        </button>
+        <button
+          onClick={() => setPreview(!preview)}
+          className="mr-5 hover:bg-green-300 bg-green-500 text-white rounded-xl p-2 mt-6"
+        >
+          Preview
+        </button>
+        <button
+          onClick={() => setDownload(!download)}
+          className="bg-green-500 hover:bg-green-300 text-white rounded-xl p-2 mt-6"
+        >
+          Download
+        </button>
+      </div>
+    );
+  const content = isLoading ? (<h1>Sending mail</h1>):(
     <div>
       <h1>NORTHFIELD MONTESSORI RESULT PORTAL</h1>
       <div className="bg-slate-100 m-3 border shadow-sm items-center flex flex-col">
@@ -274,6 +299,32 @@ const Template2Form = () => {
         Save Record
       </button>
     </div>
+  );
+
+  return preview ? (
+    <div className="w-full">
+      <PDFViewer showToolbar>
+        <Template2 />
+      </PDFViewer>
+      {buttons()}
+    </div>
+  ) : download ? (
+    <div>
+      <PDFDownloadLink document={<Template2 />} fileName="northfield.pdf">
+        {({ blob, url, loading, error }) =>
+          loading ? (
+            "Loading document..."
+          ) : (
+            <button className="ml-[40%] mt-8 border-2 p-2 bg-orange-400">
+              Download
+            </button>
+          )
+        }
+      </PDFDownloadLink>
+      {buttons()}
+    </div>
+  ) : (
+    content
   );
 }
 

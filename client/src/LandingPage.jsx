@@ -35,22 +35,27 @@ const LandingPage = () => {
             Teacher Name:
             <input
               value={teacherName}
-              onChange={(e)=>setTeacherName(e.target.value)}
+              onChange={(e) => setTeacherName(e.target.value)}
               placeholder="Name"
-              className="ml-3 bg-slate-100 p-2 mt-8" />
+              className="ml-3 bg-slate-100 p-2 mt-8"
+            />
           </label>
           <label className="-ml-4">
             Class:
             <input
               value={sclass}
-              onChange={(e)=>setsClass(e.target.value)}
+              onChange={(e) => setsClass(e.target.value)}
               placeholder="Name"
-              className="ml-3 bg-slate-100 p-2 mt-2" />
+              className="ml-3 bg-slate-100 p-2 mt-2"
+            />
           </label>
           <label className="-ml-4 mt-3">
             Template:
-            <select value={template}
-              onChange={(e)=>setTemplate(e.target.value)} className="bg-slate-100">
+            <select
+              value={template}
+              onChange={(e) => setTemplate(e.target.value)}
+              className="bg-slate-100"
+            >
               <option>--choose--</option>
               <option>1</option>
               <option>2</option>
@@ -67,13 +72,13 @@ const LandingPage = () => {
         <hr />
         <div className="ml-auto mt-3">
           <button
-            className="bg-[#787575] mr-2 text-white p-2 rounded-lg"
+            className="bg-[#787575] mr-2 text-white p-2 hover:bg-gray-300 rounded-lg"
             onClick={() => sigCanvas.current.clear()}
           >
             Clear
           </button>
           <button
-            className="bg-[#787575] mr-2 text-white p-2 rounded-lg"
+            className="bg-[#787575] mr-2 text-white p-2 hover:bg-gray-300 rounded-lg"
             onClick={create}
           >
             Save
@@ -81,7 +86,10 @@ const LandingPage = () => {
         </div>
         <button
           onClick={saveDetails}
-          className="mt-4 w-full p-3 rounded-md bg-orange-500 text-white text-lg">Continue</button>
+          className="mt-4 w-full p-3 rounded-md hover:bg-orange-300 bg-orange-500 text-white text-lg"
+        >
+          Continue
+        </button>
         {/* <img src={imageURL} alt="signature" className="signature" /> */}
       </section>
     </main>

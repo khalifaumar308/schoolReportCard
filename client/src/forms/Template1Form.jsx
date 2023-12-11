@@ -1,8 +1,8 @@
 import { useState, useRef } from "react"
 import { useSaveStudentMutation } from "../api/apiSlice";
 import { useDispatch } from "react-redux";
-import SignatureCanvas from "react-signature-canvas";
-
+import { PDFViewer, renderToFile, PDFDownloadLink } from "@react-pdf/renderer";
+import Template1 from "../formTemplates/Template1";
 
 const Template1Form = () => {
   const savedTopic = sessionStorage.getItem('topic')
@@ -23,6 +23,9 @@ const Template1Form = () => {
   const [openModel, setOpenModal] = useState(false);
   const sigCanvas = useRef();
   const [imageURL, setImageURL] = useState(null);
+
+  const [preview, setPreview] = useState(false)  
+  const [download, setDownload] = useState(false)
 
   const create = () => {
     const URL = sigCanvas.current.getTrimmedCanvas().toDataURL("image/png");
@@ -99,10 +102,16 @@ const Template1Form = () => {
     const topics = JSON.parse(sessionStorage.getItem('subjects'))
     let stds = JSON.parse(sessionStorage.getItem('students'))
     stds = stds ? stds : []
+    const dtls = JSON.parse(sessionStorage.getItem("details"))
     const student = {
-      details: JSON.parse(sessionStorage.getItem("details")),
+      details: {
+        ...dtls,
+        signature: JSON.parse(sessionStorage.getItem("teacherDetails"))
+          .signature,
+      },
       topics: JSON.parse(sessionStorage.getItem("topics")),
-      assesment:assesment,
+      assesment: assesment,
+      template: 1,
     };
     try {
       await saveStudentMutation(student)
@@ -117,12 +126,35 @@ const Template1Form = () => {
     }
   }
 
+  const buttons = () => (
+    <div className="flex ml-[25%] mt-10">
+      <button
+        className="bg-green-500 hover:bg-green-300 text-white rounded-xl p-2 mt-6 mr-5"
+        onClick={saveStudent}
+      >
+        Send Result
+      </button>
+      <button
+        onClick={() => setPreview(!preview)}
+        className="mr-5 hover:bg-green-300 bg-green-500 text-white rounded-xl p-2 mt-6"
+      >
+        Preview
+      </button>
+      <button
+        onClick={() => setDownload(!download)}
+        className="bg-green-500 hover:bg-green-300 text-white rounded-xl p-2 mt-6"
+      >
+        Download
+      </button>
+    </div>
+  );
+
   const content = isLoading ? (
-    <h1>Saving Student...</h1>
+    <h1>Sending Result...</h1>
   ) : (
     <div className="p-6 flex flex-col">
       <h1>NORTHFIELD MONTESSORI RESULT PORTAL</h1>
-      <div className=" border shadow-sm items-center flex flex-col">
+      <div className=" border shadow-sm items-center flex flex-col bg-slate-100">
         <form
           onSubmit={saveDetail}
           // style={{ display: view ? "none" : "flex" }}
@@ -136,21 +168,21 @@ const Template1Form = () => {
             id="teacher"
             name="teacher"
             placeholder="Teacher name"
-            className="bg-slate-400 text-orange-500 p-2 mb-2"
+            className="p-2 mb-2"
           />
           <label htmlFor="name">Student Name</label>
           <input
             id="name"
             name="name"
             placeholder="student name"
-            className="bg-slate-400 text-orange-500 p-2 mb-2"
+            className="p-2 mb-2"
           />
           <label htmlFor="class">Class</label>
           <input
             id="class"
             name="class"
             placeholder="student class"
-            className="bg-slate-400 text-orange-500 p-2 mb-2"
+            className="p-2 mb-2"
           />
           <label htmlFor="absent">Days Absent</label>
           <input
@@ -158,7 +190,7 @@ const Template1Form = () => {
             name="absent"
             placeholder="Days Absent"
             type="number"
-            className="bg-slate-400 text-orange-500 p-2 mb-2"
+            className="p-2 mb-2"
           />
           <label htmlFor="email">Parent Email</label>
           <input
@@ -166,36 +198,18 @@ const Template1Form = () => {
             name="email"
             placeholder="Parent email"
             type="email"
-            className="bg-slate-400 text-orange-500 p-2 mb-2"
+            className="p-2 mb-2"
           />
-          <button className="bg-orange-500 w-24 rounded-xl hover:bg-orange-300">
+          <button className="bg-orange-500 p-2 text-white w-24 rounded-xl hover:bg-orange-300">
             save
           </button>
         </form>
       </div>
-      <div>
-        <div className=" flex border-2 mt-4">
-          <SignatureCanvas
-            penColor="blue"
-            canvasProps={{ minHeight: 200, maxWidth:500, }}
-            ref={sigCanvas}
-          />
-        </div>
-        <button onClick={() => sigCanvas.current.clear()}>Clear</button>
-        <button className="create" onClick={create}>
-          Save
-        </button>
-
-        {/* <SignatureCanvas
-          penColor="blue"
-          canvasProps={{ width: 500, height: 200 }}
-        /> */}
-      </div>
       <div className="mt-6 border-2 p-3">
         <div>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center bg-slate-100">
             <h1 className="text-2xl mb-2 text-orange-500">Topic Details</h1>
-            <div className="flex-col align-middle items-center p-4 flex">
+            <div className="flex-col align-middle items-center p-2 flex">
               <label>Topic Name</label>
               <input
                 placeholder="Topic Name"
@@ -205,39 +219,31 @@ const Template1Form = () => {
                   sessionStorage.setItem("topic", ctopic);
                   setTopic(ctopic);
                 }}
-                className="bg-slate-400 text-orange-500 p-2 mb-2"
+                className="p-2 mb-2"
               />
-              <label>Sub-topic Name</label>
+              <label>Sub-topic </label>
               <input
-                placeholder="sub topic"
+                placeholder="sub-topic"
                 value={subTopic}
                 onChange={(e) => {
                   const cSubTopic = e.target.value;
                   sessionStorage.setItem("subtopic", cSubTopic);
                   setSubTopic(cSubTopic);
                 }}
-                className="bg-slate-400 text-orange-500 p-2 mb-2"
+                className="p-2 mb-2"
               />
               <form onSubmit={saveQuestion} className="flex flex-col">
                 <label>Question</label>
-                <input
+                <textarea
                   name="question"
                   placeholder="question"
-                  className="bg-slate-400 p-1"
+                  className="p-1"
                 />
                 <label>status</label>
-                <input
-                  name="status"
-                  placeholder="status"
-                  className="bg-slate-400 p-1"
-                />
+                <input name="status" placeholder="status" className="p-1" />
                 <label>Note</label>
-                <input
-                  name="note"
-                  placeholder="Note"
-                  className="bg-slate-400 p-1 w-56"
-                />
-                <button className="bg-orange-500 mt-2 rounded-xl hover:bg-orange-300 w-[100%]">
+                <textarea name="note" placeholder="Note" className="p-1 w-56" />
+                <button className="bg-orange-500 mb-4 text-white p-2 mt-2 rounded-xl hover:bg-orange-300 w-[100%]">
                   Save Question
                 </button>
               </form>
@@ -245,13 +251,13 @@ const Template1Form = () => {
           </div>
           <div className="flex items-center align-middle ">
             <button
-              className="mr-6 bg-orange-500 rounded-xl p-2"
+              className="mr-6 bg-orange-500 text-white rounded-xl p-2"
               onClick={saveSubTopic}
             >
               Save Sub-topic
             </button>
             <button
-              className="mr-6 bg-orange-500 rounded-xl p-2 w-28"
+              className="mr-6 bg-orange-500 text-white rounded-xl p-2 w-28"
               onClick={saveTopic}
             >
               Save topic
@@ -261,7 +267,7 @@ const Template1Form = () => {
           <input placeholder="topic"  /> */}
         </div>
       </div>
-      <div className="border-2 mt-4 p-2 flex flex-col align-middle items-center">
+      <div className="border-2 mt-4 bg-slate-100 p-2 flex flex-col align-middle items-center">
         <h2 className="text-2xl mb-2 text-orange-500">Effective Assessment</h2>
         <form onSubmit={saveAssesment} className="flex flex-col">
           <label htmlFor="assesment">
@@ -270,34 +276,46 @@ const Template1Form = () => {
               placeholder="Assesment"
               name="assesment"
               id="assesment"
-              className="bg-slate-400 p-1 w-56 ml-4"
+              className=" p-1 w-56 ml-4"
             />
           </label>
           <label htmlFor="rating" className="mt-2">
             Rating
             <input
-              className="bg-slate-400 p-1 w-56 ml-4"
+              className="p-1 w-56 ml-4"
               placeholder="rating"
               name="rating"
               id="rating"
             />
           </label>
-          <button className=" bg-orange-500 rounded-xl p-2 mt-3">
+          <button className=" bg-orange-500 text-white rounded-xl p-2 mt-3">
             Save Assesment
           </button>
         </form>
       </div>
-      <button
-        className="bg-green-500 rounded-xl p-2 mt-6"
-        onClick={saveStudent}
-      >
-        Save Student
-      </button>
+      {buttons()}
     </div>
   );
 
-  return content
-    
+  return preview ? (
+    <div className="w-full">
+      <PDFViewer showToolbar>
+        <Template1 />
+      </PDFViewer>
+      {buttons()}
+    </div>
+  ) : download ? (
+    <div>
+      <PDFDownloadLink document={<Template1 />} fileName="northfield.pdf">
+        {({ blob, url, loading, error }) =>
+          loading ? "Loading document..." : <button className="ml-[40%] mt-8 border-2 p-2 bg-orange-400">Download</button>
+        }
+      </PDFDownloadLink>
+      {buttons()}
+    </div>
+  ) : (
+    content
+  );
 }
 
 export default Template1Form
